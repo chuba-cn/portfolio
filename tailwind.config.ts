@@ -64,7 +64,11 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+			},
+			animation: {
+				"spin-slow": "spin 9s linear infinite",
+				"spin-fast": "spin 3s linear infinite"
+			}
   	}
   },
   plugins: [tailwindcssAnimate],
