@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -39,6 +41,8 @@ export default function RootLayout({
       <body
         className={` ${geistMono.variable} ${geistSans.variable} antialiased w-full min-h-screen`}
       >
+        <Analytics />
+        <SpeedInsights />
         <Navbar />
         { children }
         <AnimatedGridPattern
