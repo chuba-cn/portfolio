@@ -45,7 +45,7 @@ const Experience = () => {
     const springYProgress = useSpring(scrollYProgress);
 
     return (
-        <div className={"my-64"}>
+        <div className={"mt-64"}>
             <h2 className={"font-bold text-6xl mb-32 w-full text-center font-geistMono"}>Experience</h2>
 
             <div ref={ref} className={"w-[75%] mx-auto relative"} >
