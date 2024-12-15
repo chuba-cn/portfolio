@@ -2,7 +2,6 @@
 
 import LayoutPage from "@/components/LayoutPage";
 import Image from 'next/image';
-import HeroProfilePic from "../../public/images/profile/profile-pic.png";
 // import { useMediaQuery } from "@/hooks/useMediaQuery";
 import AnimatedHeroText from "@/components/AnimatedHeroText";
 import BoxReveal from "@/components/ui/box-reveal";
@@ -56,7 +55,7 @@ export default function HomePage() {
 
               <div className="flex items-center self-start mt-2">
                 <Link
-                  href={ "/dummy.pdf" }
+                  href={ "/Chuba-Resume.pdf" }
                   target="_blank"
                   className="flex items-center bg-dark text-light p-2.5 px-6 rounded-lg text-lg font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-dark"
                   download
@@ -77,11 +76,15 @@ export default function HomePage() {
             </div>
 
             <div className="w-1/2">
-              <Image
-                src={ HeroProfilePic }
-                alt="Hero Picture of Chuba"
-                className="w-full h-auto rounded-full"
-              />
+              <div className="">
+                <Image
+                  src="/images/profile/Banner(1).svg"
+                  alt="Hero Picture of Chuba"
+                  className="w-full h-auto rounded-3xl"
+                  width={500}
+                  height={300}
+                />
+              </div>
             </div>
           </div>
         </LayoutPage>

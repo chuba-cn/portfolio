@@ -3,8 +3,9 @@ import React from 'react';
 import Twitter from "../../public/svgs/twitter.svg";
 import Github from "../../public/svgs/logo-github.svg";
 import LinkedIn from "../../public/svgs/linkedin.svg";
-import CircularTextInfo from "../../public/svgs/circular-skills.svg";
+import CircularTextInfo from "../../public/svgs/CircularSkills2.svg";
 import LightBulbIcon from "../../public/svgs/miscellaneous_icons_1.svg";
+import HeroSVG from "../../public/images/profile/Banner(1).svg";
 
 
 export const TwitterIcon = ({className, ...rest}: {className?: string, [key: string]: any}) => {
@@ -53,3 +54,13 @@ export const LightBulb = ({
 }) => {
   return <LightBulbIcon className={`w-full h-auto ${className}`} {...rest} />;
 };
+
+export const HeroBanner = ({
+  className,
+  ...rest
+}: {
+    className?: string;
+  [key: string]: any;
+  }) => {
+  return <HeroSVG className={`w-full h-auto ${className}`} {...rest} />
+}

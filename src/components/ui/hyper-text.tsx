@@ -11,6 +11,7 @@ interface HyperTextProps {
   framerProps?: Variants;
   className?: string;
   animateOnLoad?: boolean;
+  shouldCenter?: boolean;
 }
 
 const alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -27,6 +28,7 @@ export default function HyperText({
   },
   className,
   animateOnLoad = true,
+  shouldCenter = false,
 }: HyperTextProps) {
   const [displayText, setDisplayText] = useState(() => {
     // Group the text into words
@@ -74,7 +76,7 @@ export default function HyperText({
 
   return (
     <div
-      className="flex flex-wrap scale-100 cursor-default overflow-visible py-2"
+      className={`flex flex-wrap scale-100 cursor-default overflow-visible py-2 ${shouldCenter ? 'items-center justify-center' : ''}`}
       onMouseEnter={triggerAnimation}
     >
       <AnimatePresence mode="sync">

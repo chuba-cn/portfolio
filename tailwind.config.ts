@@ -64,11 +64,14 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-			},
-			animation: {
-				"spin-slow": "spin 9s linear infinite",
-				"spin-fast": "spin 3s linear infinite"
-			}
+		},
+		animation: {
+			"spin-slow": "spin 9s linear infinite",
+			"spin-fast": "spin 3s linear infinite"
+		},
+		backgroundImage: {
+			 circularLight: "repeating-radial-gradient(rgba(0,0,0,0.4) 2px, #fff 5px, #fff 100px)"
+		}
   	}
   },
   plugins: [tailwindcssAnimate],
