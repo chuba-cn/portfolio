@@ -77,7 +77,7 @@ export default function HyperText({
   return (
     <div
       className={`flex flex-wrap scale-100 cursor-default overflow-visible py-2 ${shouldCenter ? 'items-center justify-center' : ''}`}
-      onMouseEnter={triggerAnimation}
+      // onMouseEnter={triggerAnimation}
     >
       <AnimatePresence mode="sync">
         {displayText.map((word, wordIndex) => (

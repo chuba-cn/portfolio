@@ -1,0 +1,31 @@
+PROJECTS
+
+1. Velora (AI-Powered Email Client)
+
+    Summary: An AI-powered email platform similar to Gmail that incorporates advanced features such as Retrieval-Augmented Generation (RAG), vector search, smart compose, and a context-aware chatbot for querying email history.It also integrates Stripe for managing payments and subscriptions.
+    Technologies Used: Google Gemini, Aurinko API (Email syncing), Ollama (vector search), Srtipe.
+    GitHub Link: https://github.com/chuba-cn/velora
+    Live URL: https://velora-three.vercel.app/
+
+2. DevLinks
+
+    Summary: A platform that lets developers consolidate all their social and developer profiles (e.g., GitHub, freeCodeCamp, HackerRank, LinkedIn, Twitter, Twitch, Hashnode, Stack Overflow) into a single sleek URL for easy sharing.
+    Technologies Used: (Implied: React/Next.js, etc.)
+    GitHub Link: https://github.com/chuba-cn/devlinks
+    Live URL: https://devlinks-theta-six.vercel.app/
+
+3. Callify
+
+    Summary: A Next.js and TypeScript-based video conferencing application replicating Zoom. It enables users to securely log in, create meetings, and access comprehensive meeting functionalities such as recording, screen sharing, managing participants, scheduling future meetings, and more—all with a responsive design for an optimal experience across devices.
+    Technologies Used: Next.js, TypeScript, Clerk, getstream, shadcn, Tailwind CSS
+    GitHub Link: https://github.com/chuba-cn/callify
+    Live URL: https://callify.vercel.app/
+
+4. Prompt Hub
+
+    Summary: A full stack application that enables users to create and share creative, AI-driven prompts, with a focus on community interaction and modern design.
+    Technologies Used: Next.js, MongoDB, NextAuth, TailwindCSS
+    GitHub Link: https://github.com/chuba-cn/Prompt-Hub
+    Live URL: https://prompthub-theta.vercel.app/
+
+

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { experience } from "@/app/constants";
-import {useScroll, motion, useSpring} from "motion/react";
+import {useScroll, motion} from "motion/react";
 import { useRef } from "react";
 import ListIcon from "@/components/ListIcon";
 
@@ -22,13 +22,13 @@ const Details = ({position, company, companyLink, time, address, description}: D
         <li ref={ref} className={"my-8 first:mt-0 last:mb-0 w-[60%] mx-auto flex flex-col items-center justify-between"}>
             <ListIcon reference={ref}/>
             <motion.div
-                initial={{ y: 50 }}
+                initial={{ y: 70 }}
                 whileInView={{ y: 0 }}
                 transition={{ duration: 1.0, type: "spring" }}
             >
                 <h3 className={"capitalize font-bold text-2xl"}>{position}&nbsp; <Link target={"_blank"} className={"text-purple-400 capitalize"} href={companyLink}>@{company}</Link></h3>
                 <span className={"font-medium text-dark/75 capitalize"}>{time} | {address}</span>
-                <p className={"font-medium w-full"}>{description}</p>
+                <p className={"font-normal w-full"}>{description}</p>
             </motion.div>
         </li>
     )
@@ -42,16 +42,14 @@ const Experience = () => {
         offset: ["start end", "center start"]
     });
 
-    const springYProgress = useSpring(scrollYProgress);
-
     return (
-        <div className={"mt-64"}>
+        <div className={"mt-64 mb-32"}>
             <h2 className={"font-bold text-6xl mb-32 w-full text-center font-geistMono"}>Experience</h2>
 
             <div ref={ref} className={"w-[75%] mx-auto relative"} >
                 <motion.div
                     className={"absolute left-[3.4375rem] top-0 w-1 h-full bg-dark origin-top"}
-                    style={{ scaleY: springYProgress }}
+                    style={{ scaleY: scrollYProgress }}
                     whileInView={{ y: 0 }}
                     transition={{ duration: 0.5, type: "spring" }}
                 />
