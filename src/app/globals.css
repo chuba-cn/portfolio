@@ -84,3 +84,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+html.dark {
+  @apply transition-colors duration-300;
+}
+
+html {
+  @apply transition-colors duration-300;
+}

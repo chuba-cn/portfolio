@@ -9,11 +9,13 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import Script from "next/script";
+import dynamic from "next/dynamic";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
-})
+});
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -37,22 +39,31 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={` ${geistMono.variable} ${geistSans.variable} antialiased w-full min-h-screen`}
+        className={` ${geistMono.variable} ${geistSans.variable} antialiased w-full min-h-screen dark:bg-dark relative`}
       >
+        <Script id="theme-switcher" strategy="beforeInteractive">
+          {`
+              if(localStorage.theme === "dark" || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+                document.documentElement.classList.add('dark')
+              } else {
+               document.documentElement.classList.remove('dark')
+              }
+            `}
+        </Script>
         <Analytics />
         <SpeedInsights />
         <Navbar />
-        { children }
+        {children}
         <AnimatedGridPattern
           numSquares={60}
           maxOpacity={0.1}
           duration={1}
           repeatDelay={1}
           className={cn(
-          "[mask-image:radial-gradient(900px_circle_at_center,white,transparent)]",
-          "inset-x-0 inset-y-[-30%] h-[150%] skew-y-8",
+            "[mask-image:radial-gradient(750px_circle_at_center,white,transparent)]",
+            "inset-x-0 inset-y-0 h-full skew-y-8 backdrop:blur-sm"
           )}
         />
         <Footer />

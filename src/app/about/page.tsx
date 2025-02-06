@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const page = () => {
   return (
-    <main className="flex w-full flex-col items-center justify-center">
+    <main className="flex w-full flex-col items-center justify-center dark:text-light">
       <LayoutPage className="pt-16">
         <AnimatedHeroText text="Passion Fuels Purpose!" shouldCenter className="text-7xl mb-16" />
         <AboutContent />

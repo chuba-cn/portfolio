@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
 const LayoutPage = ({children, className}: {children: React.ReactNode, className?: string}) => {
   return (
-    <div className={ `w-full h-full inline-block z-0 p-32 ${className}` }>
+    <div className={ `w-full h-full inline-block z-0 p-32 dark:bg-transparent ${className}` }>
       { children }
     </div>
   )

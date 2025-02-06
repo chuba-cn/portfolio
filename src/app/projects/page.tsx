@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const ProjectPage = () => {
   return (
-    <main className={"w-full mb-16 flex flex-col items-center justify-center"}>
+    <main className={"w-full mb-16 flex flex-col items-center justify-center dark:text-light"}>
       <LayoutPage className={"pt-16"}>
         <AnimatedHeroText
           text={"Imagination Fuels Innovation!"}

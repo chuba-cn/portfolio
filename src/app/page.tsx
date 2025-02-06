@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
 import LayoutPage from "@/components/LayoutPage";
-import Image from 'next/image';
+import Image from "next/image";
 // import { useMediaQuery } from "@/hooks/useMediaQuery";
 import AnimatedHeroText from "@/components/AnimatedHeroText";
 import Link from "next/link";
@@ -16,68 +16,52 @@ export default function HomePage() {
 
   return (
     <div>
-      <main className="flex items-center text-dark w-full min-h-screen">
+      <main className="flex items-center text-dark w-full min-h-screen dark:text-light">
         <LayoutPage className="pt-0">
           <div className="flex items-center justify-between w-full bg-transparent">
             <div className="w-1/2 flex flex-col items-center self-center">
-              <div className="flex items-center self-start">
-                <TrueFocus
-                  borderColor="#C084FC"
-                  sentence="Hi, I'm Chuba👋"
-                  animationDuration={0.2}
+              <div className="w-[90%] flex flex-col gap-3 items-center self-start">
+                <div className="flex items-center self-start">
+                  <TrueFocus
+                    borderColor="#C084FC"
+                    sentence="Hi, I'm Chuba👋"
+                    animationDuration={0.2}
+                  />
+                </div>
+                <AnimatedHeroText
+                  text="Solving Real-World Problems Through Innovative Web Solutions."
+                  className="text-left text-6xl"
                 />
-                {/* <p className="text-lg font-semibold font-geistSans">
-                  Hi, I&apos;m Chuba{"  "} 👋
-                  <motion.span
-                    animate={{
-                      rotate: [0, 20, 0, 20, 0],
-                      x: [0, 2, 0, 2, 0],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      repeatType: "loop",
-                      ease: "linear",
-                    }}
-                    className="inline-block"
-                  >
-                    👋
-                  </motion.span>
-                </p> */}
-              </div>
-              <AnimatedHeroText
-                text="Solving Real-World Problems Through Innovative Web Solutions."
-                className="text-left"
-              />
 
-              <BlurText
-                text="I bring designs to life with code, creating sleek and
+                <BlurText
+                  text="I bring designs to life with code, creating sleek and
                   user-friendly web interfaces. Explore my work and see the
                   possibilities."
-                delay={ 50 }
-                animateBy="words"
-                className="font-geistSans mb-4 text-base font-light"
-              />
+                  delay={50}
+                  animateBy="words"
+                  className="font-geistSans mb-4 font-light text-xl"
+                />
 
-              <div className="flex items-center self-start mt-2">
-                <Link
-                  href={"/Chuba-Resume.pdf"}
-                  target="_blank"
-                  className="flex items-center bg-dark text-light p-2.5 px-6 rounded-lg text-lg font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-dark"
-                  download
-                >
-                  Resume{" "}
-                  <span>
-                    <ExternalLink className="ml-1" />
-                  </span>{" "}
-                </Link>
-                <Link
-                  href="mailto:chinemelumchubanwene57@gmail.com"
-                  target="_blank"
-                  className="ml-4 text-lg font-medium capitalize text-dark underline underline-offset-4"
-                >
-                  Contact
-                </Link>
+                <div className="flex items-center self-start mt-2">
+                  <Link
+                    href={"/Chuba-Resume.pdf"}
+                    target="_blank"
+                    className="flex items-center bg-dark text-light p-2.5 px-6 rounded-lg text-lg font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-dark dark:bg-light dark:text-dark hover:dark:bg-dark hover:dark:text-light hover:dark:border-light"
+                    download
+                  >
+                    Resume{" "}
+                    <span>
+                      <ExternalLink className="ml-1" />
+                    </span>{" "}
+                  </Link>
+                  <Link
+                    href="mailto:chinemelumchubanwene57@gmail.com"
+                    target="_blank"
+                    className="ml-4 text-lg font-medium capitalize text-dark underline dark:text-light underline-offset-4"
+                  >
+                    Contact
+                  </Link>
+                </div>
               </div>
             </div>
 
@@ -89,6 +73,8 @@ export default function HomePage() {
                   className="w-full h-auto rounded-3xl"
                   width={500}
                   height={300}
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                 />
               </div>
             </div>
