@@ -9,14 +9,16 @@ import HireMe from "@/components/HireMe";
 import { LightBulb } from "@/components/Icons";
 import TrueFocus from "@/components/TrueFocus";
 import { useMediaQuery } from "usehooks-ts";
+import TransitionEffect from "@/components/TransitionEffect";
 
 export default function HomePage() {
   const isLargeScreen = useMediaQuery("(max-width: 1023px)");
 
   return (
     <div>
-      <main className="flex items-center text-dark w-full min-h-screen dark:text-light">
-        <LayoutPage className="pt-0 md:pt-16 sm:pt-8">
+      <TransitionEffect />
+      <main className="flex items-center text-dark w-full min-h-screen h-full dark:text-light">
+        <LayoutPage className="!pt-0 md:!pt-16 sm:!pt-16">
           <div className="flex items-center justify-between w-full bg-transparent lg:flex-col">
             <div className="w-1/2 flex flex-col items-center self-center lg:w-full lg:text-center">
               <div className="w-[90%] flex flex-col gap-3 items-center self-start lg:self-center">

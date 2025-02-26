@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -10,12 +9,7 @@ import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-montserrat",
-});
+import AnimatePresenceWrapper from "@/components/AnimatePresenceWrapper";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,7 +27,7 @@ export const metadata: Metadata = {
   description: "Portfolio Website",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -55,7 +49,9 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
         <Navbar />
-        {children}
+        <AnimatePresenceWrapper>
+          {children}
+        </AnimatePresenceWrapper>
         <AnimatedGridPattern
           numSquares={60}
           maxOpacity={0.1}
