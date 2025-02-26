@@ -4,31 +4,27 @@ import AnimatedNumbers from "@/components/AnimatedNumbers";
 
 const AboutContent = () => {
   return (
-    <div className="grid w-full grid-cols-8 gap-16">
-      <div className="col-span-3 flex flex-col items-start justify-start">
+    <div className="grid w-full grid-cols-8 gap-16 sm:gap-8">
+      <div className="col-span-3 flex flex-col items-start justify-start xl:col-span-4 md:order-2 md:col-span-8">
         <h2 className="mb-4 font-bold uppercase text-lg text-dark/75 dark:text-light/75">
           About Me
         </h2>
         <p className="font-normal mb-4">
-          Hey! I&apos;m Chuba. Web development isn&apos;t just my job –
-          it&apos;s where I get to solve real-world problems and create digital
-          experiences that actually matter to people. I&apos;ve always been
-          driven by this crazy idea that technology should make life easier, not
-          more complicated.
+          Hey! I&apos;m Chuba. I build fast, scalable, and user-friendly web
+          applications that solve real-world problems. My journey started in
+          automotive engineering, but I found my passion in software
+          development—turning complex ideas into seamless digital experiences.
         </p>
         <p className="font-normal">
-          After moving from automotive engineering into web development,
-          I&apos;ve learned that great design is about understanding people. My
-          work isn&apos;t about writing perfect code – it&apos;s about crafting
-          solutions that click with users and that feel intuitive the moment
-          someone lands on a page.
+          I specialize in React, Next.js, TypeScript, and backend technologies
+          like Node.js and MongoDB, creating performant and accessible
+          applications. For me, great engineering isn’t just about writing clean
+          code—it’s about building solutions that scale, handle real-time data
+          efficiently, and feel intuitive for users.
         </p>
         <p className="font-normal my-4">
-          When I&apos;m not diving into a challenging project, you&apos;ll
-          probably catch me watching Formula 1, geeking out about race
-          strategies – which, turns out, isn&apos;t that different from
-          debugging a tricky coding issue. Both require patience, strategic
-          thinking, and understanding complex systems.
+          When I&apos;m not coding, you’ll probably find me watching and analyzing Formula 1
+          race strategies or exploring new tech trends.
         </p>
         <p className="font-normal">
           Want to build something that makes a real difference? Let&apos;s talk.
@@ -36,7 +32,7 @@ const AboutContent = () => {
         </p>
       </div>
 
-      <div className="col-span-3 relative h-full border-2 border-dark border-solid bg-light dark:bg-dark dark:border-light p-8 flex items-center justify-center rounded-2xl">
+      <div className="col-span-3 relative h-full border-2 border-dark border-solid bg-light dark:bg-dark dark:border-light p-8 flex items-center justify-center rounded-2xl xl:col-span-4 md:order-1 md:col-span-8">
         <div
           className={
             "flex items-center justify-center bg-dark rounded-2xl h-[90%]"
@@ -56,40 +52,62 @@ const AboutContent = () => {
           />
         </div>
       </div>
-      <div className={"col-span-2 flex flex-col items-end justify-between"}>
-        <div className={"flex flex-col items-end justify-center"}>
-          <span className={"inline-block text-7xl font-bold"}>
-            <AnimatedNumbers value={50} />+
+      <div
+        className={
+          "col-span-2 flex flex-col items-end justify-between xl:col-span-8 xl:flex-row xl:items-center md:order-3"
+        }
+      >
+        <div
+          className={"flex flex-col items-end justify-center xl:items-center"}
+        >
+          <span
+            className={
+              "inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl"
+            }
+          >
+            <AnimatedNumbers value={5} />+
           </span>
           <h2
             className={
-              "text-xl font-medium capitalize text-dark/75 dark:text-light/75"
+              "text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm"
             }
           >
             Satisfied Clients
           </h2>
         </div>
 
-        <div className={"flex flex-col items-end justify-center"}>
-          <span className={"inline-block text-7xl font-bold"}>
-            <AnimatedNumbers value={40} />+
+        <div
+          className={"flex flex-col items-end justify-center xl:items-center"}
+        >
+          <span
+            className={
+              "inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl"
+            }
+          >
+            <AnimatedNumbers value={5} />+
           </span>
           <h2
             className={
-              "text-xl font-medium capitalize text-dark/75 dark:text-light/75"
+              "text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm"
             }
           >
             Projects Completed
           </h2>
         </div>
 
-        <div className={"flex flex-col items-end justify-center"}>
-          <span className={"inline-block text-7xl font-bold"}>
+        <div
+          className={"flex flex-col items-end justify-center xl:items-center"}
+        >
+          <span
+            className={
+              "inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl"
+            }
+          >
             <AnimatedNumbers value={2} />+
           </span>
           <h2
             className={
-              "text-xl font-medium capitalize text-dark/75 dark:text-light/75"
+              "text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm"
             }
           >
             Years of Experience

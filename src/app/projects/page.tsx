@@ -15,14 +15,22 @@ export const metadata: Metadata = {
 
 const ProjectPage = () => {
   return (
-    <main className={"w-full mb-16 flex flex-col items-center justify-center dark:text-light"}>
+    <main
+      className={
+        "w-full mb-16 flex flex-col items-center justify-center dark:text-light"
+      }
+    >
       <LayoutPage className={"pt-16"}>
         <AnimatedHeroText
           text={"Imagination Fuels Innovation!"}
           shouldCenter
-          className="text-7xl mb-16"
+          className="lg:!text-7xl text-7xl sm:mb-8 sm:!text-6xl xs:!text-4xl mb-16"
         />
-        <div className={"grid grid-cols-12 gap-24 gap-y-32"}>
+        <div
+          className={
+            "grid grid-cols-12 gap-24 gap-y-32 xl:gap-x-16 lg:gap-x-8 md:gap-y-24 sm:gap-x-0"
+          }
+        >
           <div className={"col-span-12"}>
             <FeaturedProject
               title="Velora (AI-Powered Email Client)"
@@ -33,7 +41,7 @@ const ProjectPage = () => {
               github="https://github.com/chuba-cn/velora"
             />
           </div>
-          <div className="col-span-6">
+          <div className="col-span-6 sm:col-span-12">
             <Project
               title="Devlinks"
               link=" https://devlinks-theta-six.vercel.app/"
@@ -42,7 +50,7 @@ const ProjectPage = () => {
               github="https://github.com/chuba-cn/devlinks"
             />
           </div>
-          <div className="col-span-6">
+          <div className="col-span-6 sm:col-span-12">
             <Project
               title="Prompt Hub"
               link="https://prompthub-theta.vercel.app/"

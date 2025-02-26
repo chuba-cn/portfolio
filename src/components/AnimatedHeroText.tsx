@@ -1,5 +1,8 @@
+"use client"
+
 import React from 'react'
-import HyperText from './ui/hyper-text'
+import dynamic from 'next/dynamic'
+const HyperText = dynamic(() => import('./ui/hyper-text'), { ssr: false })
 
 type AnimatedHeroTextProps = {
   text: string,
@@ -9,7 +12,7 @@ type AnimatedHeroTextProps = {
 
 const AnimatedHeroText = ({ text, className = "", shouldCenter = false }: AnimatedHeroTextProps) => {
   return (
-    <div className='w-full mx-auto py-2 flex items-center justify-center text-center overflow-hidden'>
+    <div className='w-full mx-auto py-2 flex items-center justify-center text-center sm:py-0'>
       <h1 className={ `w-full text-dark dark:text-light font-extrabold capitalize ${className}` }>
         <HyperText text={ text } className='font-geistMono' shouldCenter={ shouldCenter } />
       </h1>
