@@ -24,7 +24,8 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Chuba N.C",
-  description: "Portfolio Website",
+  description:
+    "Frontend engineer specialized in engineering exceptional user interfaces with a focus on scalability, accessibility, and performance. My portfolio showcases user interfaces engineered for impact, regardless of underlying technology.",
 };
 
 export default async function RootLayout({
