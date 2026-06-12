@@ -16,15 +16,17 @@ const AboutContent = () => {
           development—turning complex ideas into seamless digital experiences.
         </p>
         <p className="font-normal">
-          I specialize in React, Next.js, TypeScript, and backend technologies
-          like Node.js and MongoDB, creating performant and accessible
-          applications. For me, great engineering isn’t just about writing clean
-          code—it’s about building solutions that scale, handle real-time data
-          efficiently, and feel intuitive for users.
+          I specialize in React, Next.js, and TypeScript, with backend and
+          real-time technologies like Node.js, tRPC, PostgreSQL, and WebSockets,
+          creating performant and accessible applications. For me, great
+          engineering isn’t just about writing clean code—it’s about building
+          solutions that scale, handle real-time data efficiently, and feel
+          intuitive for users.
         </p>
         <p className="font-normal my-4">
-          When I&apos;m not coding, you’ll probably find me watching and analyzing Formula 1
-          race strategies or exploring new tech trends.
+          When I&apos;m not coding, you’ll probably find me analyzing Formula 1
+          race strategies, diving into systems programming with Rust, or
+          exploring new tech trends.
         </p>
         <p className="font-normal">
           Want to build something that makes a real difference? Let&apos;s talk.

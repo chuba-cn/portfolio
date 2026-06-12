@@ -4,8 +4,8 @@ import AnimatedHeroText from "@/components/AnimatedHeroText";
 import FeaturedProject from "@/components/FeaturedProject";
 import veloraImage from "../../../public/images/projects/velora-1.png";
 import devlinksImage from "../../../public/images/projects/devlinks-1.png";
-import promptHubImage from "../../../public/images/projects/prompt-hub.png";
 import callifyImage from "../../../public/images/projects/callify-1.png";
+import NoThrowCover from "../../../public/images/projects/nothrow-cover.svg";
 import Project from "@/components/Project";
 import TransitionEffect from "@/components/TransitionEffect";
 
@@ -37,7 +37,7 @@ const ProjectPage = () => {
             <div className={"col-span-12"}>
               <FeaturedProject
                 title="Velora (AI-Powered Email Client)"
-                summary="An AI-powered email platform similar to Gmail that incorporates advanced features such as Retrieval-Augmented Generation (RAG), vector search, smart compose, and a context-aware chatbot for querying email history. It also integrates Stripe for managing payments and subscriptions."
+                summary="An AI-powered email client built on the T3 Stack, featuring Retrieval-Augmented Generation (RAG), vector search, smart compose, and a context-aware chatbot for querying your email history. Fully type-safe via tRPC, with persistent storage through Prisma ORM, authentication via NextAuth.js, and Stripe-powered subscriptions."
                 link="https://velora-three.vercel.app/"
                 type="Featured Project"
                 img={veloraImage}
@@ -46,27 +46,28 @@ const ProjectPage = () => {
             </div>
             <div className="col-span-6 sm:col-span-12">
               <Project
-                title="Devlinks"
-                link=" https://devlinks-theta-six.vercel.app/"
-                type="Link Sharing Platform"
-                img={devlinksImage}
-                github="https://github.com/chuba-cn/devlinks"
+                title="NoThrow"
+                link="https://www.npmjs.com/package/nothrow-ts"
+                type="Open-Source TypeScript Library"
+                cover={<NoThrowCover className="w-full h-auto" />}
+                github="https://github.com/chuba-cn/NoThrow"
+                visitLabel="View on npm"
               />
             </div>
             <div className="col-span-6 sm:col-span-12">
               <Project
-                title="Prompt Hub"
-                link="https://prompthub-theta.vercel.app/"
-                type="AI"
-                img={promptHubImage}
-                github="https://github.com/chuba-cn/Prompt-Hub"
+                title="Devlinks"
+                link="https://devlinks-theta-six.vercel.app/"
+                type="Link Sharing Platform"
+                img={devlinksImage}
+                github="https://github.com/chuba-cn/devlinks"
               />
             </div>
 
             <div className={"col-span-12"}>
               <FeaturedProject
                 title="Callify"
-                summary="A Next.js and TypeScript-based video conferencing application replicating Zoom. It enables users to securely log in, create meetings, and access comprehensive meeting functionalities such as recording, screen sharing, managing participants, scheduling future meetings, and more—all with a responsive design for an optimal experience across devices."
+                summary="A Next.js and TypeScript video conferencing app built on the Stream Video SDK. Users securely log in, create and schedule meetings, and access full functionality—recording, screen sharing, live chat, and participant management—within a fully responsive experience across devices."
                 link="https://callify.vercel.app/"
                 type="Featured Project"
                 img={callifyImage}

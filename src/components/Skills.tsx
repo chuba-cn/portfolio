@@ -56,6 +56,7 @@ const Skills = () => {
         <Skill name={"TypeScript"} x={"20vw"} y={"-12vw"} />
         <Skill name={"Git"} x={"35vw"} y={"-5vw"} />
         <Skill name={"NodeJS"} x={"0vw"} y={"-21vw"} />
+        <Skill name={"Rust"} x={"11vw"} y={"-18vw"} />
         <Skill name={"Tailwind CSS"} x={"-20vw"} y={"18vw"} />
         <Skill name={"Figma"} x={"18vw"} y={"18vw"} />
       </div>
