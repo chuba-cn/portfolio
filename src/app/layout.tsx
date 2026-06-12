@@ -1,69 +1,65 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Sora, Source_Code_Pro, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
-import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
-import AnimatePresenceWrapper from "@/components/AnimatePresenceWrapper";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import GridBackground from "@/components/design/GridBackground";
+import ButtonGradient from "@/components/design/ButtonGradient";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+const sora = Sora({
+  subsets: ["latin"],
+  weight: ["300", "400", "600", "700"],
+  variable: "--font-sora",
+  display: "swap",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const sourceCodePro = Source_Code_Pro({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-code",
+  display: "swap",
+});
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  variable: "--font-grotesk",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Chuba N.C",
+  title: "Chuba — Frontend / Full-stack Engineer",
   description:
-    "Frontend engineer specialized in engineering exceptional user interfaces with a focus on scalability, accessibility, and performance. My portfolio showcases user interfaces engineered for impact, regardless of underlying technology.",
+    "Chinemelum 'Chuba' Chuba-Nwene — a frontend-focused engineer building fast, scalable, real-time web applications. Currently leading frontend at TheTravelHunters.",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={` ${geistMono.variable} ${geistSans.variable} antialiased w-full min-h-screen dark:bg-dark relative`}
+        className={`${sora.variable} ${sourceCodePro.variable} ${spaceGrotesk.variable} antialiased relative min-h-screen w-full overflow-x-hidden`}
       >
         <Script id="theme-switcher" strategy="beforeInteractive">
           {`
-              if(localStorage.theme === "dark" || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)){
-                document.documentElement.classList.add('dark')
-              } else {
-               document.documentElement.classList.remove('dark')
-              }
-            `}
+            if(localStorage.theme === "dark" || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+              document.documentElement.classList.add('dark')
+            } else {
+              document.documentElement.classList.remove('dark')
+            }
+          `}
         </Script>
         <Analytics />
         <SpeedInsights />
-        <Navbar />
-        <AnimatePresenceWrapper>
-          {children}
-        </AnimatePresenceWrapper>
-        <AnimatedGridPattern
-          numSquares={60}
-          maxOpacity={0.1}
-          duration={1}
-          repeatDelay={1}
-          className={cn(
-            "[mask-image:radial-gradient(750px_circle_at_center,white,transparent)]",
-            "inset-x-0 inset-y-0 h-full skew-y-8 backdrop:blur-sm"
-          )}
-        />
+
+        <GridBackground />
+        <Header />
+        <main className="pt-[4.75rem] lg:pt-[5.25rem]">{children}</main>
         <Footer />
+
+        <ButtonGradient />
       </body>
     </html>
   );
