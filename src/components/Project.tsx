@@ -9,12 +9,22 @@ import { motion } from "framer-motion";
 type ProjectProps = {
   type: string;
   title: string;
-  img: string | StaticImageData;
+  img?: string | StaticImageData;
+  cover?: React.ReactNode;
   link: string;
   github: string;
+  visitLabel?: string;
 };
 
-const Project = ({ type, title, img, link, github }: ProjectProps) => {
+const Project = ({
+  type,
+  title,
+  img,
+  cover,
+  link,
+  github,
+  visitLabel = "Visit",
+}: ProjectProps) => {
   return (
     <article className="w-full flex flex-col items-center justify-center rounded-2xl border border-solid border-dark bg-light p-6 relative dark:bg-dark dark:border-light xs:p-4">
       <div
@@ -28,13 +38,19 @@ const Project = ({ type, title, img, link, github }: ProjectProps) => {
         className="w-full cursor-pointer overflow-hidden rounded-lg border border-solid border-dark dark:border-light"
       >
         <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
-          <Image
-            src={img}
-            alt={title}
-            className="w-full h-auto"
-            priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+          {cover ? (
+            <div className="w-full h-auto">{cover}</div>
+          ) : (
+            img && (
+              <Image
+                src={img}
+                alt={title}
+                className="w-full h-auto"
+                priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            )
+          )}
         </motion.div>
       </Link>
 
@@ -55,7 +71,7 @@ const Project = ({ type, title, img, link, github }: ProjectProps) => {
             target="_blank"
             className="text-lg font-semibold underline md:text-base"
           >
-            Visit
+            {visitLabel}
           </Link>
           <Link href={github} target="_blank" className="w-8 md:w-6">
             <GithubIcon />{" "}
