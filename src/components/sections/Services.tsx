@@ -9,8 +9,8 @@ const Services = () => {
       <div className="container">
         <Heading
           tag="What I Do"
-          title="Engineering, not gig work."
-          text="I work mainly as an engineer inside product teams — here's where I create the most leverage."
+          title="Built for speed and scale."
+          text="I work as an engineer inside product teams — here's where I create the most leverage."
         />
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">

@@ -2,6 +2,7 @@ import { Github, Linkedin, Twitter, Mail } from "lucide-react";
 import Section from "@/components/design/Section";
 import TagLine from "@/components/design/TagLine";
 import Button from "@/components/design/Button";
+import Magnetic from "@/components/design/Magnetic";
 import { socials, EMAIL } from "@/app/constants";
 
 const iconFor = (id: string) => {
@@ -43,14 +44,18 @@ const Contact = () => {
             </p>
 
             <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
-              <Button href={`mailto:${EMAIL}`} solid>
-                <span className="flex items-center gap-2">
-                  <Mail className="h-4 w-4" /> Email me
-                </span>
-              </Button>
-              <Button href="/Chuba-Resume.pdf" download>
-                Download Résumé
-              </Button>
+              <Magnetic>
+                <Button href={`mailto:${EMAIL}`} solid>
+                  <span className="flex items-center gap-2">
+                    <Mail className="h-4 w-4" /> Email me
+                  </span>
+                </Button>
+              </Magnetic>
+              <Magnetic>
+                <Button href="/Chuba-Resume.pdf" download>
+                  Download Résumé
+                </Button>
+              </Magnetic>
             </div>
 
             <div className="mt-10 flex items-center justify-center gap-3">

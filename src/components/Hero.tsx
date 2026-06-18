@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import Button from "@/components/design/Button";
+import Magnetic from "@/components/design/Magnetic";
 import TagLine from "@/components/design/TagLine";
 import HeroStage from "@/components/racing/car/HeroStage";
 import HudCounter from "@/components/racing/HudCounter";
@@ -65,12 +66,16 @@ const Hero = () => {
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           className="pointer-events-auto mt-8 flex flex-wrap items-center gap-4"
         >
-          <Button href="#work" solid>
-            View my work
-          </Button>
-          <Button href="/Chuba-Resume.pdf" download>
-            Résumé
-          </Button>
+          <Magnetic>
+            <Button href="#work" solid>
+              View my work
+            </Button>
+          </Magnetic>
+          <Magnetic>
+            <Button href="/Chuba-Resume.pdf" download>
+              Résumé
+            </Button>
+          </Magnetic>
         </motion.div>
 
         {/* Live telemetry readout */}

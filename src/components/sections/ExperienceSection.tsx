@@ -109,7 +109,7 @@ const ExperienceSection = () => {
         <Heading
           tag="Experience"
           title="The lap so far."
-          text="Four corners of a career, traced as a flying lap of Spa-Francorchamps."
+          text="Each role is a corner — scroll to run the lap."
         />
 
         <div ref={containerRef} className="grid gap-10 lg:grid-cols-12">

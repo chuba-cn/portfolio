@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
@@ -16,13 +16,14 @@ const TelemetryCursor = () => {
   const reduced = usePrefersReducedMotion();
   const [enabled, setEnabled] = useState(false);
   const [hovering, setHovering] = useState(false);
+  const hoverRef = useRef(false);
 
   // Raw pointer position (center dot tracks this exactly).
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
-  // Lagged ring.
-  const ringX = useSpring(x, { stiffness: 350, damping: 28, mass: 0.5 });
-  const ringY = useSpring(y, { stiffness: 350, damping: 28, mass: 0.5 });
+  // Ring follows closely with just a hint of trail.
+  const ringX = useSpring(x, { stiffness: 750, damping: 35, mass: 0.3 });
+  const ringY = useSpring(y, { stiffness: 750, damping: 35, mass: 0.3 });
 
   useEffect(() => {
     if (reduced) return;
@@ -34,10 +35,16 @@ const TelemetryCursor = () => {
     const move = (e: PointerEvent) => {
       x.set(e.clientX);
       y.set(e.clientY);
-      const interactive = (e.target as HTMLElement)?.closest?.(
-        'a, button, [role="button"], input, textarea, select'
+      // Only re-render when the hover state actually flips (not every move).
+      const interactive = Boolean(
+        (e.target as HTMLElement)?.closest?.(
+          'a, button, [role="button"], input, textarea, select'
+        )
       );
-      setHovering(Boolean(interactive));
+      if (interactive !== hoverRef.current) {
+        hoverRef.current = interactive;
+        setHovering(interactive);
+      }
     };
 
     window.addEventListener("pointermove", move);
