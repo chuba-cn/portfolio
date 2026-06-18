@@ -8,6 +8,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import GridBackground from "@/components/design/GridBackground";
 import ButtonGradient from "@/components/design/ButtonGradient";
+import SmoothScroll from "@/components/providers/SmoothScroll";
+import LightsOutLoader from "@/components/racing/LightsOutLoader";
+import TelemetryCursor from "@/components/racing/TelemetryCursor";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -54,10 +57,15 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
 
+        <LightsOutLoader />
+        <TelemetryCursor />
+
         <GridBackground />
-        <Header />
-        <main className="pt-[4.75rem] lg:pt-[5.25rem]">{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <Header />
+          <main className="pt-[4.75rem] lg:pt-[5.25rem]">{children}</main>
+          <Footer />
+        </SmoothScroll>
 
         <ButtonGradient />
       </body>
