@@ -65,6 +65,23 @@ html.lenis body {
   cursor: none !important;
 }
 
+/* F1 steering-wheel shift lights — sequential rev sweep (compositor-only). */
+@keyframes shift-rev {
+  0%,
+  100% {
+    opacity: 0.16;
+  }
+  45% {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shift-led {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+
 @layer base {
   body {
     @apply font-sans bg-bg text-text text-base antialiased;

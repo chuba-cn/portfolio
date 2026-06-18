@@ -1,19 +1,20 @@
 import Section from "@/components/design/Section";
 import Heading from "@/components/design/Heading";
+import TyreIcon, { COMPOUNDS, type Compound } from "@/components/racing/TyreIcon";
 import { techStack } from "@/app/constants";
 
 /**
- * Each stack group is colour-coded like an F1 tyre compound — a "tyre" ring on
- * the category header and a matching compound dot on every chip — so the stack
- * reads as a set-up sheet rather than a generic tag cloud.
+ * Each stack group is assigned an F1 tyre compound — drawn as an actual tyre
+ * (coloured sidewall band + compound letter) — so the stack reads as a set-up
+ * sheet. Compounds are chosen so no two adjacent groups share one.
  */
-const COMPOUNDS = [
-  { name: "Soft", color: "#FF3B3B" },
-  { name: "Medium", color: "#FFD12E" },
-  { name: "Hard", color: "#E8E8E8" },
-  { name: "Inter", color: "#3BD16F" },
-  { name: "Wet", color: "#3B9BFF" },
-  { name: "Ultra", color: "#AC6AFF" },
+const GROUP_COMPOUNDS: Compound[] = [
+  "hard", // Languages — the durable bedrock
+  "medium", // Frameworks — the balanced all-rounder
+  "wet", // State & Data
+  "soft", // Real-time — maximum pace
+  "inter", // Styling & UI
+  "hard", // Tooling
 ];
 
 const TechStack = () => {
@@ -28,27 +29,18 @@ const TechStack = () => {
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {techStack.map((group, gi) => {
-            const compound = COMPOUNDS[gi % COMPOUNDS.length];
+            const compound = GROUP_COMPOUNDS[gi % GROUP_COMPOUNDS.length];
+            const color = COMPOUNDS[compound].color;
             return (
               <div
                 key={group.category}
                 className="rounded-2xl border border-stroke bg-surface/60 p-6 backdrop-blur-sm"
               >
-                <div className="flex items-center justify-between">
-                  <h3 className="flex items-center gap-2 font-code text-xs font-bold uppercase tracking-wider text-color-1">
-                    {/* Tyre marking */}
-                    <span
-                      className="h-3 w-3 rounded-full border-2"
-                      style={{ borderColor: compound.color }}
-                    />
+                <div className="flex items-center justify-between gap-3">
+                  <h3 className="font-code text-xs font-bold uppercase tracking-wider text-color-1">
                     {group.category}
                   </h3>
-                  <span
-                    className="font-code text-[0.6rem] uppercase tracking-[0.2em]"
-                    style={{ color: compound.color }}
-                  >
-                    {compound.name}
-                  </span>
+                  <TyreIcon compound={compound} size={42} className="shrink-0" />
                 </div>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {group.items.map((item) => (
@@ -58,7 +50,7 @@ const TechStack = () => {
                     >
                       <span
                         className="h-1.5 w-1.5 rounded-full"
-                        style={{ backgroundColor: compound.color }}
+                        style={{ backgroundColor: color }}
                       />
                       {item}
                     </li>
