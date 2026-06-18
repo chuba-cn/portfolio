@@ -88,7 +88,7 @@ const Header = () => {
               Chuba
             </span>
             <span className="font-code text-[0.5rem] font-semibold uppercase tracking-[0.3em] text-text-muted transition-colors group-hover:text-color-1">
-              // Racing
+              {"// Racing"}
             </span>
           </span>
         </Link>
