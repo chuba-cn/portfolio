@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import profilePic from "../../public/images/profile/profile-pic.png";
 import Button from "@/components/design/Button";
 import TagLine from "@/components/design/TagLine";
+import HeroVisual from "@/components/racing/car/HeroVisual";
 
 const Hero = () => {
   return (
@@ -64,12 +65,14 @@ const Hero = () => {
 
         {/* Framed portrait */}
         <div className="lg:col-span-5">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="relative mx-auto w-full max-w-sm"
-          >
+          <HeroVisual
+            fallback={
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                className="relative mx-auto w-full max-w-sm"
+              >
             {/* Rotating conic glow */}
             <div className="absolute -inset-4 z-0 opacity-60 blur-2xl dark:opacity-80">
               <div className="h-full w-full animate-spin-slow rounded-full bg-conic-gradient" />
@@ -102,7 +105,9 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
+              </motion.div>
+            }
+          />
         </div>
       </div>
     </section>
