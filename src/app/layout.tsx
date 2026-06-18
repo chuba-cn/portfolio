@@ -12,7 +12,7 @@ import SmoothScroll from "@/components/providers/SmoothScroll";
 import LightsOutLoader from "@/components/racing/LightsOutLoader";
 import TelemetryCursor from "@/components/racing/TelemetryCursor";
 import TelemetryRail from "@/components/racing/TelemetryRail";
-import ShaderBackground from "@/components/racing/ShaderBackground";
+import RaceScene from "@/components/racing/scene/RaceScene";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -63,7 +63,7 @@ export default function RootLayout({
         <TelemetryCursor />
         <TelemetryRail />
 
-        <ShaderBackground />
+        <RaceScene />
         <GridBackground />
         <SmoothScroll>
           <Header />

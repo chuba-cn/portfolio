@@ -4,7 +4,6 @@ import { motion } from "motion/react";
 import Button from "@/components/design/Button";
 import Magnetic from "@/components/design/Magnetic";
 import TagLine from "@/components/design/TagLine";
-import HeroStage from "@/components/racing/car/HeroStage";
 import HudCounter from "@/components/racing/HudCounter";
 
 // Real impact metrics, framed as live race telemetry.
@@ -21,8 +20,8 @@ const Hero = () => {
       id="hero"
       className="relative flex min-h-[88vh] items-center overflow-hidden"
     >
-      {/* Cinematic 3D stage (dark desktop) or static backdrop */}
-      <HeroStage />
+      {/* The persistent car (RaceScene) lives behind the whole page; the hero
+          just provides scrims so the copy stays legible over it. */}
 
       {/* Legibility scrims */}
       <div

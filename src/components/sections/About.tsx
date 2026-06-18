@@ -7,8 +7,8 @@ const About = () => {
     <Section id="about" crosses>
       <div className="container">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10">
-          {/* Bio */}
-          <div className="lg:col-span-7">
+          {/* Bio (frosted glass so the car reads softly behind it) */}
+          <div className="rounded-3xl border border-stroke bg-surface/40 p-6 backdrop-blur-md md:p-8 lg:col-span-7">
             <TagLine className="mb-4">About</TagLine>
             <h2 className="h2 max-w-2xl text-text">
               From mechatronics to interfaces that ship.
