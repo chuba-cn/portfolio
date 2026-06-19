@@ -10,7 +10,7 @@ import {
   AnimatePresence,
 } from "motion/react";
 import { experience } from "@/app/constants";
-import { activeCorner, CORNER_NAMES } from "@/components/racing/track/lapConfig";
+import { activeStop, STOP_TS } from "@/components/racing/track/lapConfig";
 import ExperienceSection from "./ExperienceSection";
 
 const TrackScene = dynamic(
@@ -32,20 +32,25 @@ const hasWebGL = () => {
 
 const RoleCard = ({ index }: { index: number }) => {
   const job = experience[index];
+  // Card sits on the same side as the roadside marker (even = right, odd = left).
+  const onRight = index % 2 === 0;
+  const fromX = onRight ? 60 : -60;
   return (
     <motion.div
-      initial={{ opacity: 0, x: 60, filter: "blur(6px)" }}
+      initial={{ opacity: 0, x: fromX, filter: "blur(6px)" }}
       animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-      exit={{ opacity: 0, x: -40, filter: "blur(6px)" }}
+      exit={{ opacity: 0, x: -fromX, filter: "blur(6px)" }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="pointer-events-auto absolute right-4 top-1/2 w-[min(92vw,30rem)] -translate-y-1/2 rounded-3xl border border-stroke bg-bg/70 p-7 backdrop-blur-md md:right-[6vw] md:p-8"
+      className={`pointer-events-auto absolute top-1/2 w-[min(92vw,30rem)] -translate-y-1/2 rounded-3xl border border-stroke bg-bg/70 p-7 backdrop-blur-md md:p-8 ${
+        onRight ? "right-4 md:right-[6vw]" : "left-4 md:left-[6vw]"
+      }`}
     >
       <div className="flex items-center gap-3 font-code text-[0.65rem] uppercase tracking-[0.2em]">
         <span className="flex h-6 w-6 items-center justify-center rounded-md bg-color-1 font-bold text-white">
           {index + 1}
         </span>
         <span className="text-color-1">
-          Turn {index + 1} · {CORNER_NAMES[index]}
+          Stop {String(index + 1).padStart(2, "0")} / {String(STOP_TS.length).padStart(2, "0")}
         </span>
       </div>
       <h3 className="mt-4 text-xl font-semibold text-text sm:text-2xl">
@@ -87,7 +92,7 @@ const DriveExperience = () => {
 
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     progress.current = v;
-    const a = activeCorner(v);
+    const a = activeStop(v);
     setActive((prev) => (prev !== a ? a : prev));
   });
 
@@ -105,7 +110,7 @@ const DriveExperience = () => {
             The lap so far.
           </h2>
           <p className="mt-3 font-code text-xs uppercase tracking-wider text-text-muted">
-            Scroll to run the lap — a corner for each role.
+            Scroll to drive the street — a stop for each role.
           </p>
         </div>
 
@@ -116,7 +121,7 @@ const DriveExperience = () => {
 
         {/* Corner ticker */}
         <div className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center gap-3">
-          {CORNER_NAMES.map((_, i) => (
+          {STOP_TS.map((_, i) => (
             <span
               key={i}
               className="h-1.5 rounded-full transition-all duration-300"

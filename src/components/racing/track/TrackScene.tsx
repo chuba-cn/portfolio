@@ -5,123 +5,139 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   Environment,
   Lightformer,
-  Grid,
   AdaptiveDpr,
   PerformanceMonitor,
 } from "@react-three/drei";
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import * as THREE from "three";
 import Str14Model from "../car/Str14Model";
-import { CORNER_US, lapU } from "./lapConfig";
+import { STOP_TS, roadT } from "./lapConfig";
 
-// The 2D Spa path (shared with the circuit map) sampled into a 3D ground curve.
-const SPA_PATH =
-  "M 96 78 C 84 50 128 44 132 74 C 135 96 112 104 104 122 C 96 140 104 150 122 150 L 296 96 C 324 89 346 104 342 132 C 337 164 306 168 312 196 C 318 226 296 246 262 242 L 126 232 C 90 229 74 204 86 176 C 99 146 116 116 102 92 C 96 82 90 86 96 78 Z";
-const SCALE = 0.12;
-const YAW_OFFSET = Math.PI / 2; // align the model's nose with the path tangent
+const ROAD_WIDTH = 11;
+const START_Z = -6; // car start (near camera)
+const END_Z = -230; // far end (into the fog)
+const ROAD_NEAR = 24;
+const ROAD_FAR = -280;
+const CAR_YAW = Math.PI; // nose points down the road (-Z)
 
-function sampleSpaCurve(samples = 160): THREE.CatmullRomCurve3 {
-  const svgNS = "http://www.w3.org/2000/svg";
-  const svg = document.createElementNS(svgNS, "svg");
-  const path = document.createElementNS(svgNS, "path");
-  path.setAttribute("d", SPA_PATH);
-  svg.appendChild(path);
-  Object.assign(svg.style, {
-    position: "absolute",
-    width: "0",
-    height: "0",
-    overflow: "hidden",
-  });
-  document.body.appendChild(svg);
-  const len = path.getTotalLength();
-  const pts: THREE.Vector3[] = [];
-  for (let i = 0; i < samples; i++) {
-    const p = path.getPointAtLength((i / samples) * len);
-    pts.push(new THREE.Vector3((p.x - 210) * SCALE, 0, (p.y - 145) * SCALE));
-  }
-  document.body.removeChild(svg);
-  return new THREE.CatmullRomCurve3(pts, true, "centripetal", 0.5);
-}
+const lerp = THREE.MathUtils.lerp;
+const zAt = (t: number) => lerp(START_Z, END_Z, t);
 
-const Lap = ({ progress }: { progress: MutableRefObject<number> }) => {
+const Markings = () => {
+  // Dashed centre line.
+  const dashes = useMemo(() => {
+    const out: number[] = [];
+    for (let z = ROAD_NEAR; z > ROAD_FAR; z -= 7) out.push(z);
+    return out;
+  }, []);
+
+  return (
+    <group>
+      {dashes.map((z, i) => (
+        <mesh key={i} position={[0, 0.02, z]} rotation={[-Math.PI / 2, 0, 0]}>
+          <planeGeometry args={[0.22, 2.6]} />
+          <meshStandardMaterial color="#d8d8e0" roughness={0.6} />
+        </mesh>
+      ))}
+      {/* Solid edge lines */}
+      {[-1, 1].map((s) => (
+        <mesh
+          key={s}
+          position={[s * (ROAD_WIDTH / 2 - 0.45), 0.02, (ROAD_NEAR + ROAD_FAR) / 2]}
+          rotation={[-Math.PI / 2, 0, 0]}
+        >
+          <planeGeometry args={[0.18, ROAD_NEAR - ROAD_FAR]} />
+          <meshStandardMaterial color="#cfcfd8" roughness={0.6} />
+        </mesh>
+      ))}
+    </group>
+  );
+};
+
+const Barriers = () => {
+  const len = ROAD_NEAR - ROAD_FAR;
+  const z = (ROAD_NEAR + ROAD_FAR) / 2;
+  return (
+    <group>
+      {[-1, 1].map((s) => (
+        <group key={s}>
+          {/* Concrete wall */}
+          <mesh position={[s * (ROAD_WIDTH / 2 + 0.6), 0.5, z]}>
+            <boxGeometry args={[0.4, 1, len]} />
+            <meshStandardMaterial color="#1b1b22" roughness={0.9} />
+          </mesh>
+          {/* Red/white kerb at the road edge */}
+          <mesh
+            position={[s * (ROAD_WIDTH / 2 - 0.05), 0.03, z]}
+            rotation={[-Math.PI / 2, 0, 0]}
+          >
+            <planeGeometry args={[0.5, len]} />
+            <meshStandardMaterial color="#b23b3b" roughness={0.7} />
+          </mesh>
+        </group>
+      ))}
+    </group>
+  );
+};
+
+const StopMarkers = () => {
+  return (
+    <group>
+      {STOP_TS.map((t, i) => {
+        const side = i % 2 === 0 ? 1 : -1;
+        return (
+          <mesh
+            key={i}
+            position={[side * (ROAD_WIDTH / 2 + 1.6), 1.6, zAt(t)]}
+          >
+            <boxGeometry args={[0.18, 3.2, 0.18]} />
+            <meshStandardMaterial
+              color="#AC6AFF"
+              emissive="#AC6AFF"
+              emissiveIntensity={2.2}
+            />
+          </mesh>
+        );
+      })}
+    </group>
+  );
+};
+
+const Drive = ({ progress }: { progress: MutableRefObject<number> }) => {
   const car = useRef<THREE.Group>(null);
   const { camera } = useThree();
+  const pointer = useRef({ x: 0, y: 0 });
+  const camPos = useMemo(() => new THREE.Vector3(), []);
+  const look = useMemo(() => new THREE.Vector3(), []);
 
-  const curve = useMemo(() => sampleSpaCurve(), []);
-  const lineGeo = useMemo(
-    () => new THREE.TubeGeometry(curve, 400, 0.16, 8, true),
-    [curve]
-  );
-  const corners = useMemo(
-    () => CORNER_US.map((u) => curve.getPointAt(u)),
-    [curve]
-  );
-
-  // reusable temporaries
-  const tmp = useMemo(
-    () => ({
-      pos: new THREE.Vector3(),
-      tan: new THREE.Vector3(),
-      camPos: new THREE.Vector3(),
-      look: new THREE.Vector3(),
-    }),
-    []
-  );
-
-  useFrame(() => {
+  useFrame((state) => {
     const c = car.current;
     if (!c) return;
-    const u = lapU(progress.current);
+    pointer.current.x = state.pointer.x;
+    pointer.current.y = state.pointer.y;
 
-    curve.getPointAt(u, tmp.pos);
-    curve.getTangentAt(u, tmp.tan).normalize();
+    const z = zAt(roadT(progress.current));
+    c.position.set(0, 0, z);
+    c.rotation.y = CAR_YAW;
 
-    c.position.set(tmp.pos.x, 0, tmp.pos.z);
-    c.rotation.y = Math.atan2(tmp.tan.x, tmp.tan.z) + YAW_OFFSET;
+    // Chase camera: low and close behind for a cinematic view.
+    camPos.set(
+      pointer.current.x * 1.0,
+      2.4 - pointer.current.y * 0.5,
+      z + 6
+    );
+    camera.position.lerp(camPos, 0.12);
 
-    // Chase camera: behind + above, looking into the corner.
-    tmp.camPos
-      .copy(tmp.pos)
-      .addScaledVector(tmp.tan, -6.5)
-      .add(new THREE.Vector3(0, 3.2, 0));
-    camera.position.lerp(tmp.camPos, 0.08);
-
-    tmp.look.copy(tmp.pos).addScaledVector(tmp.tan, 5).setY(0.6);
-    camera.lookAt(tmp.look);
+    look.set(0, 0.9, z - 14);
+    camera.lookAt(look);
   });
 
   return (
-    <>
-      {/* Glowing racing line */}
-      <mesh geometry={lineGeo}>
-        <meshStandardMaterial
-          color="#AC6AFF"
-          emissive="#AC6AFF"
-          emissiveIntensity={2.4}
-          roughness={0.4}
-          metalness={0.2}
-        />
-      </mesh>
-
-      {/* Corner gates */}
-      {corners.map((p, i) => (
-        <mesh key={i} position={[p.x, 0.6, p.z]}>
-          <torusGeometry args={[0.8, 0.06, 8, 24]} />
-          <meshStandardMaterial
-            color="#FFC876"
-            emissive="#FFC876"
-            emissiveIntensity={2}
-          />
-        </mesh>
-      ))}
-
-      {/* Car */}
-      <Suspense fallback={null}>
-        <group ref={car}>
-          <Str14Model />
-        </group>
-      </Suspense>
-    </>
+    <Suspense fallback={null}>
+      <group ref={car}>
+        <Str14Model />
+      </group>
+    </Suspense>
   );
 };
 
@@ -137,46 +153,45 @@ const TrackScene = ({
       className="!absolute inset-0"
       dpr={dpr}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-      camera={{ position: [0, 4, 10], fov: 46 }}
+      camera={{ position: [0, 3.4, 3], fov: 50 }}
       style={{ pointerEvents: "none" }}
     >
       <PerformanceMonitor onDecline={() => setDpr(1)} onIncline={() => setDpr(1.4)} />
 
-      <color attach="background" args={["#07060f"]} />
-      <fog attach="fog" args={["#07060f", 14, 46]} />
+      <color attach="background" args={["#08070f"]} />
+      <fog attach="fog" args={["#08070f", 26, 150]} />
 
       <ambientLight intensity={0.5} />
-      <directionalLight position={[6, 10, 4]} intensity={1.4} />
-      <pointLight position={[-8, 4, 2]} intensity={30} color="#AC6AFF" />
+      <directionalLight position={[6, 12, 4]} intensity={1.6} />
+      <pointLight position={[-6, 4, 0]} intensity={20} color="#AC6AFF" />
 
       <Environment resolution={128}>
-        <Lightformer intensity={2} position={[0, 6, 4]} scale={[12, 6, 1]} color="#ffffff" />
-        <Lightformer intensity={1.6} position={[-6, 3, 1]} scale={[3, 8, 1]} color="#AC6AFF" />
+        <Lightformer intensity={1.8} position={[0, 8, -10]} scale={[14, 6, 1]} color="#ffffff" />
+        <Lightformer intensity={1.4} position={[-6, 3, 0]} scale={[3, 8, 1]} color="#AC6AFF" />
       </Environment>
 
-      {/* Ground + grid for a sense of speed */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.02, 0]}>
-        <planeGeometry args={[200, 200]} />
-        <meshStandardMaterial color="#0a0a12" roughness={0.9} metalness={0.3} />
+      {/* Ground */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.04, -120]}>
+        <planeGeometry args={[400, 600]} />
+        <meshStandardMaterial color="#0b0b12" roughness={0.95} />
       </mesh>
-      <Grid
-        position={[0, -0.01, 0]}
-        args={[200, 200]}
-        cellSize={1.2}
-        cellThickness={0.5}
-        cellColor="#1c1a2c"
-        sectionSize={6}
-        sectionThickness={1}
-        sectionColor="#3a2f5c"
-        fadeDistance={60}
-        fadeStrength={1.4}
-        infiniteGrid
-      />
 
-      <Lap progress={progress} />
+      {/* Asphalt */}
+      <mesh
+        rotation={[-Math.PI / 2, 0, 0]}
+        position={[0, 0, (ROAD_NEAR + ROAD_FAR) / 2]}
+      >
+        <planeGeometry args={[ROAD_WIDTH, ROAD_NEAR - ROAD_FAR]} />
+        <meshStandardMaterial color="#26262d" roughness={0.92} metalness={0.05} />
+      </mesh>
+
+      <Markings />
+      <Barriers />
+      <StopMarkers />
+      <Drive progress={progress} />
 
       <EffectComposer>
-        <Bloom intensity={0.8} luminanceThreshold={0.7} luminanceSmoothing={0.3} mipmapBlur />
+        <Bloom intensity={0.5} luminanceThreshold={0.8} luminanceSmoothing={0.3} mipmapBlur />
         <Vignette eskil={false} offset={0.3} darkness={0.7} />
       </EffectComposer>
 

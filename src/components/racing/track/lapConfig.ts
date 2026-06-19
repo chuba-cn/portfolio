@@ -1,36 +1,35 @@
 /**
- * Shared choreography for the "Drive the Lap" Experience scene. Maps the pinned
- * section's scroll progress (0..1) to a position along the lap (0..1) with a
- * dwell plateau at each corner, and tells the overlay which role is active.
+ * Choreography for the "Drive the street" Experience scene. Maps the pinned
+ * section's scroll progress (0..1) to a position along a straight road (0..1),
+ * pausing at each stop where that role's card reveals on the roadside.
  *
- * One segment per corner: the first part drives to the corner, the rest dwells
- * there (car ~stopped, role card revealed) before the next segment launches.
+ * One segment per stop: the first part cruises to the stop, the rest dwells
+ * there before the next segment launches forward.
  */
 
-// Spa corners mapped to the four roles (newest first), as fractions of the lap.
-export const CORNER_US = [0.14, 0.4, 0.63, 0.87];
-export const CORNER_NAMES = ["La Source", "Les Combes", "Pouhon", "Stavelot"];
+// Stops along the road (0 = start, 1 = far end), one per role (newest first).
+export const STOP_TS = [0.16, 0.42, 0.68, 0.92];
 
 const DRIVE_PORTION = 0.55; // first 55% of each segment drives; rest dwells
 const ease = (t: number) => t * t * (3 - 2 * t);
 
-/** Scroll progress (0..1) → position along the lap (0..1). */
-export function lapU(p: number): number {
-  const N = CORNER_US.length;
+/** Scroll progress (0..1) → position along the road (0..1). */
+export function roadT(p: number): number {
+  const N = STOP_TS.length;
   const clamped = Math.min(0.9999, Math.max(0, p));
   const seg = Math.min(N - 1, Math.floor(clamped * N));
   const local = clamped * N - seg;
-  const prevU = seg === 0 ? 0 : CORNER_US[seg - 1];
-  const targetU = CORNER_US[seg];
+  const prevT = seg === 0 ? 0 : STOP_TS[seg - 1];
+  const targetT = STOP_TS[seg];
   if (local < DRIVE_PORTION) {
-    return prevU + (targetU - prevU) * ease(local / DRIVE_PORTION);
+    return prevT + (targetT - prevT) * ease(local / DRIVE_PORTION);
   }
-  return targetU;
+  return targetT;
 }
 
-/** Scroll progress (0..1) → active corner index, or -1 while driving. */
-export function activeCorner(p: number): number {
-  const N = CORNER_US.length;
+/** Scroll progress (0..1) → active stop index, or -1 while cruising. */
+export function activeStop(p: number): number {
+  const N = STOP_TS.length;
   const clamped = Math.min(0.9999, Math.max(0, p));
   const seg = Math.min(N - 1, Math.floor(clamped * N));
   const local = clamped * N - seg;
