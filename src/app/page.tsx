@@ -3,7 +3,7 @@ import Companies from "@/components/sections/Companies";
 import About from "@/components/sections/About";
 import Services from "@/components/sections/Services";
 import TechStack from "@/components/sections/TechStack";
-import ExperienceSection from "@/components/sections/ExperienceSection";
+import ExperienceDrive from "@/components/sections/ExperienceDrive";
 import Work from "@/components/sections/Work";
 import Contact from "@/components/sections/Contact";
 
@@ -16,7 +16,7 @@ export default function HomePage() {
       <Services />
       <TechStack />
       <Work />
-      <ExperienceSection />
+      <ExperienceDrive />
       <Contact />
     </>
   );
