@@ -76,7 +76,7 @@ const FeaturedCard = ({ project }: { project: Project }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-80px" }}
     transition={{ duration: 0.5 }}
-    className="group grid grid-cols-1 overflow-hidden rounded-3xl border border-stroke bg-surface/60 backdrop-blur-sm transition-colors hover:border-color-1/50 lg:grid-cols-2"
+    className="cursor-target group grid grid-cols-1 overflow-hidden rounded-3xl border border-stroke bg-surface/60 backdrop-blur-sm transition-colors hover:border-color-1/50 lg:grid-cols-2"
   >
     <a
       href={project.link}
@@ -110,7 +110,7 @@ const GridCard = ({ project }: { project: Project }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-80px" }}
     transition={{ duration: 0.5 }}
-    className="group flex flex-col overflow-hidden rounded-3xl border border-stroke bg-surface/60 backdrop-blur-sm transition-colors hover:border-color-1/50"
+    className="cursor-target group flex flex-col overflow-hidden rounded-3xl border border-stroke bg-surface/60 backdrop-blur-sm transition-colors hover:border-color-1/50"
   >
     <a
       href={project.link}

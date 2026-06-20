@@ -28,6 +28,9 @@ const hasWebGL = () => {
 const RaceScene = () => {
   const [capable, setCapable] = useState(false);
   const [isDark, setIsDark] = useState(true);
+  // Hand off to the Experience drive scene: unmount the page car while the
+  // Experience section owns the viewport, so only one GPU context runs.
+  const [yieldToExperience, setYieldToExperience] = useState(false);
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -39,10 +42,19 @@ const RaceScene = () => {
     sync();
     const observer = new MutationObserver(sync);
     observer.observe(root, { attributes: true, attributeFilter: ["class"] });
-    return () => observer.disconnect();
+
+    // The Experience drive scene tells us when it owns the viewport.
+    const onExpScene = (e: Event) =>
+      setYieldToExperience((e as CustomEvent<boolean>).detail);
+    window.addEventListener("exp-scene", onExpScene as EventListener);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("exp-scene", onExpScene as EventListener);
+    };
   }, []);
 
-  if (!capable || !isDark) return null;
+  if (!capable || !isDark || yieldToExperience) return null;
 
   return (
     <div

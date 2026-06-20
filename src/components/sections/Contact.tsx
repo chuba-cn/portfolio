@@ -68,7 +68,7 @@ const Contact = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.title}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-stroke text-text-muted transition-colors hover:border-color-1 hover:text-color-1"
+                    className="cursor-target flex h-11 w-11 items-center justify-center rounded-full border border-stroke text-text-muted transition-colors hover:border-color-1 hover:text-color-1"
                   >
                     <Icon className="h-5 w-5" />
                   </a>

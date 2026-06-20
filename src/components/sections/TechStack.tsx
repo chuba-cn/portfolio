@@ -34,7 +34,7 @@ const TechStack = () => {
             return (
               <div
                 key={group.category}
-                className="rounded-2xl border border-stroke bg-surface/60 p-6 backdrop-blur-sm"
+                className="cursor-target rounded-2xl border border-stroke bg-surface/60 p-6 backdrop-blur-sm transition-colors hover:border-color-1/50"
               >
                 <div className="flex items-center justify-between gap-3">
                   <h3 className="font-code text-xs font-bold uppercase tracking-wider text-color-1">

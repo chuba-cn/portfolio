@@ -40,7 +40,7 @@ const About = () => {
               {metrics.map((m) => (
                 <div
                   key={m.label}
-                  className="rounded-2xl border border-stroke bg-surface/60 p-5 backdrop-blur-sm transition-colors hover:border-color-1/50"
+                  className="cursor-target rounded-2xl border border-stroke bg-surface/60 p-5 backdrop-blur-sm transition-colors hover:border-color-1/50"
                 >
                   <p className="text-3xl font-bold text-text md:text-4xl">
                     {m.prefix}

@@ -17,7 +17,7 @@ const Services = () => {
           {services.map((s, i) => (
             <div
               key={s.id}
-              className="group relative flex flex-col rounded-2xl border border-stroke bg-surface/60 p-7 backdrop-blur-sm transition-colors hover:border-color-1/50"
+              className="cursor-target group relative flex flex-col rounded-2xl border border-stroke bg-surface/60 p-7 backdrop-blur-sm transition-colors hover:border-color-1/50"
             >
               <PlusSvg className="absolute right-5 top-5 text-stroke" />
               <span className={`font-code text-sm font-bold ${s.accent}`}>

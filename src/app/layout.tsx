@@ -10,7 +10,7 @@ import GridBackground from "@/components/design/GridBackground";
 import ButtonGradient from "@/components/design/ButtonGradient";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import LightsOutLoader from "@/components/racing/LightsOutLoader";
-import TelemetryCursor from "@/components/racing/TelemetryCursor";
+import TargetCursor from "@/components/racing/TargetCursor";
 import TelemetryRail from "@/components/racing/TelemetryRail";
 import RaceScene from "@/components/racing/scene/RaceScene";
 
@@ -60,7 +60,7 @@ export default function RootLayout({
         <SpeedInsights />
 
         <LightsOutLoader />
-        <TelemetryCursor />
+        <TargetCursor spinDuration={3} hideDefaultCursor parallaxOn hoverDuration={0.2} />
         <TelemetryRail />
 
         <RaceScene />
