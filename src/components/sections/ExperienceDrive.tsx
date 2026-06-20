@@ -11,6 +11,7 @@ import {
 } from "motion/react";
 import { experience } from "@/app/constants";
 import { activeStop, STOP_TS } from "@/components/racing/track/lapConfig";
+import { carYield } from "@/components/racing/carYield";
 import ElectricBorder from "@/components/racing/ElectricBorder";
 import ExperienceSection from "./ExperienceSection";
 
@@ -122,15 +123,12 @@ const DriveExperience = () => {
   // unmount the drive first then bring the car back.
   useEffect(() => {
     if (near) {
-      window.dispatchEvent(new CustomEvent("exp-scene", { detail: true }));
+      carYield.set("experience", true);
       const t = setTimeout(() => setMountScene(true), 220);
       return () => clearTimeout(t);
     }
     setMountScene(false);
-    const t = setTimeout(
-      () => window.dispatchEvent(new CustomEvent("exp-scene", { detail: false })),
-      220
-    );
+    const t = setTimeout(() => carYield.set("experience", false), 220);
     return () => clearTimeout(t);
   }, [near]);
 

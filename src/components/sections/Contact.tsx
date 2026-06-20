@@ -3,6 +3,7 @@ import Section from "@/components/design/Section";
 import TagLine from "@/components/design/TagLine";
 import Button from "@/components/design/Button";
 import Magnetic from "@/components/design/Magnetic";
+import ContactWarp from "./ContactWarp";
 import { socials, EMAIL } from "@/app/constants";
 
 const iconFor = (id: string) => {
@@ -23,6 +24,9 @@ const Contact = () => {
     <Section id="contact" crosses>
       <div className="container">
         <div className="relative overflow-hidden rounded-3xl border border-stroke bg-surface/60 px-6 py-16 text-center backdrop-blur-sm md:px-12 md:py-20">
+          {/* Hyperspeed "finish straight" (dark desktop only) */}
+          <ContactWarp />
+
           {/* Glow */}
           <div
             aria-hidden

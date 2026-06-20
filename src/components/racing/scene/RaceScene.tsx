@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import { carYield } from "../carYield";
 
 // Lazy, client-only — three.js + model stay out of the SSR/first-paint path.
 const SceneCanvas = dynamic(() => import("./SceneCanvas"), { ssr: false });
@@ -31,11 +32,21 @@ const RaceScene = () => {
   // Hand off to the Experience drive scene: unmount the page car while the
   // Experience section owns the viewport, so only one GPU context runs.
   const [yieldToExperience, setYieldToExperience] = useState(false);
+  // Hold the car off until the intro loader/warp has finished on first load, so
+  // its context never overlaps the loader's Hyperspeed (avoids 2 GPU contexts).
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const wideEnough = window.matchMedia("(min-width: 1024px)").matches;
     setCapable(!reduced && wideEnough && hasWebGL());
+
+    // Wait out the intro loader/warp on first load; otherwise mount immediately.
+    const introPlaying =
+      !reduced && !sessionStorage.getItem("lights-out-seen");
+    let readyTimer: ReturnType<typeof setTimeout> | undefined;
+    if (introPlaying) readyTimer = setTimeout(() => setReady(true), 5000);
+    else setReady(true);
 
     const root = document.documentElement;
     const sync = () => setIsDark(root.classList.contains("dark"));
@@ -43,18 +54,21 @@ const RaceScene = () => {
     const observer = new MutationObserver(sync);
     observer.observe(root, { attributes: true, attributeFilter: ["class"] });
 
-    // The Experience drive scene tells us when it owns the viewport.
-    const onExpScene = (e: Event) =>
-      setYieldToExperience((e as CustomEvent<boolean>).detail);
-    window.addEventListener("exp-scene", onExpScene as EventListener);
+    // Stand the car down whenever another WebGL scene (intro warp, Experience
+    // drive, Contact warp) is active, so only one context runs at a time.
+    setYieldToExperience(carYield.active);
+    const unsub = carYield.subscribe(() =>
+      setYieldToExperience(carYield.active)
+    );
 
     return () => {
+      if (readyTimer) clearTimeout(readyTimer);
       observer.disconnect();
-      window.removeEventListener("exp-scene", onExpScene as EventListener);
+      unsub();
     };
   }, []);
 
-  if (!capable || !isDark || yieldToExperience) return null;
+  if (!capable || !isDark || yieldToExperience || !ready) return null;
 
   return (
     <div
