@@ -22,10 +22,6 @@ const Footer = () => {
           © {new Date().getFullYear()} Chinemelum Chuba-Nwene
         </p>
 
-        <p className="order-first font-code text-xs uppercase tracking-wider text-text-muted md:order-none">
-          Built with Next.js &amp; Tailwind
-        </p>
-
         <div className="flex items-center gap-3">
           {socials.map((s) => {
             const Icon = iconFor(s.id);
@@ -49,40 +45,6 @@ const Footer = () => {
             Say hello
           </a>
         </div>
-      </div>
-
-      {/* Required attribution for the hero 3D model (CC BY-NC-SA 4.0) */}
-      <div className="container pb-8">
-        <p className="text-center text-[0.7rem] leading-relaxed text-text-muted/70">
-          3D model:{" "}
-          <a
-            href="https://sketchfab.com/3d-models/2019-f1-toro-rosso-str14-44be044aa57d45f8bbff9fe6827fe5af"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline transition-colors hover:text-color-1"
-          >
-            “2019 F1 Toro Rosso STR14”
-          </a>{" "}
-          by{" "}
-          <a
-            href="https://sketchfab.com/outpiston"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline transition-colors hover:text-color-1"
-          >
-            OUTPISTON
-          </a>
-          , licensed under{" "}
-          <a
-            href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline transition-colors hover:text-color-1"
-          >
-            CC BY-NC-SA 4.0
-          </a>
-          .
-        </p>
       </div>
     </footer>
   );
