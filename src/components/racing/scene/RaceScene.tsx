@@ -32,11 +32,20 @@ const RaceScene = () => {
   // Hand off to other WebGL scenes (Experience drive, Contact warp): unmount the
   // page car while one of them owns the viewport, so only one context runs.
   const [yieldToExperience, setYieldToExperience] = useState(false);
+  // Hold the car's first mount until the intro loader (which runs its own
+  // Hyperspeed warp) has finished, so the two WebGL contexts never overlap.
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const wideEnough = window.matchMedia("(min-width: 1024px)").matches;
-    setCapable(!reduced && wideEnough && hasWebGL());
+    const cap = !reduced && wideEnough && hasWebGL();
+    setCapable(cap);
+
+    // The loader plays its warp on every load; wait it out before mounting.
+    let readyTimer: ReturnType<typeof setTimeout> | undefined;
+    if (cap) readyTimer = setTimeout(() => setReady(true), 4000);
+    else setReady(true);
 
     const root = document.documentElement;
     const sync = () => setIsDark(root.classList.contains("dark"));
@@ -50,12 +59,13 @@ const RaceScene = () => {
     );
 
     return () => {
+      if (readyTimer) clearTimeout(readyTimer);
       observer.disconnect();
       unsub();
     };
   }, []);
 
-  if (!capable || !isDark || yieldToExperience) return null;
+  if (!capable || !isDark || yieldToExperience || !ready) return null;
 
   return (
     <div
