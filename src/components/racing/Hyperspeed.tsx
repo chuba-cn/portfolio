@@ -1039,6 +1039,13 @@ class App {
   }
 
   init() {
+    // Guard against a disposed app (React StrictMode mounts/unmounts/remounts;
+    // the first app's async loadAssets().then(init) can resolve after dispose,
+    // whose GL context is already lost → EffectComposer.addPass would crash).
+    if (this.disposed) return;
+    const gl = this.renderer.getContext();
+    if (!gl || gl.isContextLost()) return;
+
     this.initPasses();
     const options = this.options;
     this.road.init();
@@ -1264,7 +1271,10 @@ const Hyperspeed: FC<HyperspeedProps> = ({
 
     const myApp = new App(container, options);
     appRef.current = myApp;
-    myApp.loadAssets().then(myApp.init);
+    myApp.loadAssets().then(() => {
+      // Only initialise if this app is still the live one (StrictMode-safe).
+      if (!myApp.disposed && appRef.current === myApp) myApp.init();
+    });
 
     return () => {
       if (appRef.current) {
