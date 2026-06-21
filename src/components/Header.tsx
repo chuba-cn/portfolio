@@ -54,7 +54,7 @@ const Header = () => {
     <button
       onClick={toggleTheme}
       aria-label="Toggle color theme"
-      className={`flex h-10 w-10 items-center justify-center rounded-full border border-stroke text-text transition-colors hover:text-color-1 ${className}`}
+      className={`cursor-target flex h-10 w-10 items-center justify-center rounded-full border border-stroke text-text transition-colors hover:text-color-1 ${className}`}
     >
       {mode === "dark" ? (
         <SunIcon className="h-5 w-5" />
@@ -76,13 +76,20 @@ const Header = () => {
         <Link
           href="#hero"
           onClick={() => setOpen(false)}
-          className="mr-auto flex items-center gap-2 lg:mr-8"
+          className="cursor-target group mr-auto flex items-center gap-2.5 lg:mr-8"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-color-1 font-code text-sm font-bold text-white">
-            CN
+          {/* Race number plate */}
+          <span className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-md bg-color-1 font-code text-lg font-bold italic text-white shadow-[0_0_12px_rgba(172,106,255,0.5)]">
+            7
+            <span className="absolute inset-x-0 bottom-0 h-1 bg-color-2" />
           </span>
-          <span className="font-code text-sm font-semibold uppercase tracking-wider text-text">
-            Chuba
+          <span className="flex flex-col leading-none">
+            <span className="font-code text-sm font-bold uppercase tracking-wider text-text">
+              Chuba
+            </span>
+            <span className="font-code text-[0.5rem] font-semibold uppercase tracking-[0.3em] text-text-muted transition-colors group-hover:text-color-1">
+              {"// Racing"}
+            </span>
           </span>
         </Link>
 
@@ -92,7 +99,7 @@ const Header = () => {
             <a
               key={item.id}
               href={item.url}
-              className={`relative px-5 font-code text-xs font-semibold uppercase tracking-wider transition-colors hover:text-text xl:px-6 ${
+              className={`cursor-target relative px-5 font-code text-xs font-semibold uppercase tracking-wider transition-colors hover:text-text xl:px-6 ${
                 active === item.id ? "text-text" : "text-text-muted"
               }`}
             >

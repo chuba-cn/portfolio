@@ -2,6 +2,8 @@ import { Github, Linkedin, Twitter, Mail } from "lucide-react";
 import Section from "@/components/design/Section";
 import TagLine from "@/components/design/TagLine";
 import Button from "@/components/design/Button";
+import Magnetic from "@/components/design/Magnetic";
+import ContactWarp from "./ContactWarp";
 import { socials, EMAIL } from "@/app/constants";
 
 const iconFor = (id: string) => {
@@ -22,6 +24,9 @@ const Contact = () => {
     <Section id="contact" crosses>
       <div className="container">
         <div className="relative overflow-hidden rounded-3xl border border-stroke bg-surface/60 px-6 py-16 text-center backdrop-blur-sm md:px-12 md:py-20">
+          {/* Hyperspeed "finish straight" (dark desktop only) */}
+          <ContactWarp />
+
           {/* Glow */}
           <div
             aria-hidden
@@ -43,14 +48,18 @@ const Contact = () => {
             </p>
 
             <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
-              <Button href={`mailto:${EMAIL}`} solid>
-                <span className="flex items-center gap-2">
-                  <Mail className="h-4 w-4" /> Email me
-                </span>
-              </Button>
-              <Button href="/Chuba-Resume.pdf" download>
-                Download Résumé
-              </Button>
+              <Magnetic>
+                <Button href={`mailto:${EMAIL}`} solid>
+                  <span className="flex items-center gap-2">
+                    <Mail className="h-4 w-4" /> Email me
+                  </span>
+                </Button>
+              </Magnetic>
+              <Magnetic>
+                <Button href="/Chuba-Resume.pdf" download>
+                  Download Résumé
+                </Button>
+              </Magnetic>
             </div>
 
             <div className="mt-10 flex items-center justify-center gap-3">
@@ -63,7 +72,7 @@ const Contact = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.title}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-stroke text-text-muted transition-colors hover:border-color-1 hover:text-color-1"
+                    className="cursor-target flex h-11 w-11 items-center justify-center rounded-full border border-stroke text-text-muted transition-colors hover:border-color-1 hover:text-color-1"
                   >
                     <Icon className="h-5 w-5" />
                   </a>

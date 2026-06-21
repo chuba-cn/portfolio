@@ -8,6 +8,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import GridBackground from "@/components/design/GridBackground";
 import ButtonGradient from "@/components/design/ButtonGradient";
+import SmoothScroll from "@/components/providers/SmoothScroll";
+import LightsOutLoader from "@/components/racing/LightsOutLoader";
+import TargetCursor from "@/components/racing/TargetCursor";
+import TelemetryRail from "@/components/racing/TelemetryRail";
+import RaceScene from "@/components/racing/scene/RaceScene";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -54,10 +59,17 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
 
+        <LightsOutLoader />
+        <TargetCursor spinDuration={3} hideDefaultCursor parallaxOn hoverDuration={0.2} />
+        <TelemetryRail />
+
+        <RaceScene />
         <GridBackground />
-        <Header />
-        <main className="pt-[4.75rem] lg:pt-[5.25rem]">{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <Header />
+          <main className="pt-[4.75rem] lg:pt-[5.25rem]">{children}</main>
+          <Footer />
+        </SmoothScroll>
 
         <ButtonGradient />
       </body>

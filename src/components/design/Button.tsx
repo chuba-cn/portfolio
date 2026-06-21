@@ -22,7 +22,7 @@ const Button = ({
   download,
   target,
 }: ButtonProps) => {
-  const classes = `button relative inline-flex items-center justify-center h-11 transition-colors ${
+  const classes = `cursor-target button relative inline-flex items-center justify-center h-11 transition-colors ${
     px || "px-7"
   } ${solid ? "text-white hover:text-white" : "text-text hover:text-color-1"} ${
     className || ""

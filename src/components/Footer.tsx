@@ -22,10 +22,6 @@ const Footer = () => {
           © {new Date().getFullYear()} Chinemelum Chuba-Nwene
         </p>
 
-        <p className="order-first font-code text-xs uppercase tracking-wider text-text-muted md:order-none">
-          Built with Next.js &amp; Tailwind
-        </p>
-
         <div className="flex items-center gap-3">
           {socials.map((s) => {
             const Icon = iconFor(s.id);
