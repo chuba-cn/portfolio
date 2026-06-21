@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+export {};
+
 type EventMap = Record<string, Array<(data: unknown) => void>>;
 
 const pubSub = {
@@ -173,4 +175,3 @@ weatherStation.setTemperature(25);
 // Output:
 // Phone Display: Current temperature is 25°C
 // TV Display: Temperature updated to 25°C
-
